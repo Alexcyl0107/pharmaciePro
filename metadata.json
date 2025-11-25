@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Copy of PharmaCare Pro",
+  "description": "Une application de gestion de pharmacie complète et moderne incluant la gestion des stocks, les ventes (POS), les ordonnances et une assistance IA pour l'analyse des données.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
