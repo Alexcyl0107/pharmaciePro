@@ -1,23 +1,18 @@
-import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, '.', '');
-    return {
-      server: {
-        port: 3000,
-        host: '0.0.0.0',
-      },
-      plugins: [react()],
-      define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
-      },
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '.'),
-        }
-      }
-    };
+  // Charge les variables d'environnement (comme API_KEY)
+  const env = loadEnv(mode, process.cwd(), '');
+  
+  return {
+    plugins: [react()],
+    define: {
+      // Important : Remplace process.env.API_KEY par sa valeur lors du build
+      // pour que le SDK Google GenAI fonctionne côté client.
+      'process.env.API_KEY': JSON.stringify(env.API_KEY),
+      'process.env': {} // Évite les crashs si d'autres process.env sont accédés
+    }
+  };
 });
